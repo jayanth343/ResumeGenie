@@ -38,6 +38,21 @@ py -3.10 -m venv .venv
 pip install -r requirements.txt
 python scripts/run_pipeline.py
 ```
+## Running with Docker
+You can use Docker Compose to run both the ResumeGenie application and the required PostgreSQL database without manual installation.
+
+**Prerequisites:**
+- Docker & Docker Compose installed.
+- A `.env` file created (see below).
+
+**Steps:**
+  Build and start the services:
+   ```bash
+   docker-compose up --build
+   ```
+   This starts two containers:
+    - resumegenie_db: A PostgreSQL 15 instance.
+    - resumegenie_app: The Python application (executes the pipeline on startup).
 
 ## Environment Variables (example .env)
 ```

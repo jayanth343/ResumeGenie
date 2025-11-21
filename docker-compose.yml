@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # Service 1: The ResumeGenie Application
+  app:
+    build: .
+    container_name: resumegenie_app
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      # Override the host in DATABASE_URL to match the service name 'db'
+      # This ensures the app connects to the containerized database, not localhost
+      - DATABASE_URL=postgresql+psycopg://postgres:postgres@db:5432/resumegenie
+    volumes:
+      # Mount the source code to allow live editing (optional, good for dev)
+      - ./:/app
+    command: ["python", "scripts/run_pipeline.py"]
+
+  # Service 2: PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: resumegenie_db
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=resumegenie
+    ports:
+      - "5432:5432" # Expose port to localhost for inspection tools (pgAdmin, DBeaver)
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
