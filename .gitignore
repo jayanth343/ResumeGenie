@@ -1,0 +1,43 @@
+# Virtual environments
+.venv/
+venv/
+ENV/
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+# Build / dist
+build/
+dist/
+*.egg-info/
+.eggs/
+# IDE / editor
+.vscode/
+*.code-workspace
+# Environment / secrets
+.env
+*.env
+.env.*
+# Logs / runtime
+*.log
+logs/
+# Coverage / test artifacts
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+# Mypy / type check
+.mypy_cache/
+.dmypy.json
+# Black / isort cache
+.black/
+# SQLite or temp data
+*.db
+data/tmp/
+# Generated resumes / outputs
+output/
+generated/
+# OS
+Thumbs.db
+.DS_Store
