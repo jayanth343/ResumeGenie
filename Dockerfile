@@ -31,7 +31,6 @@ COPY . .
 # Create a non-root user for security (optional but recommended)
 RUN useradd -m appuser && chown -R appuser /app
 USER appuser
-
 # Default command to run the pipeline
 # Users can override this command (e.g., to run specific scripts)
-CMD ["python", "scripts/run_pipeline.py"]
+CMD ["python", "-m","scripts.run_pipeline"]

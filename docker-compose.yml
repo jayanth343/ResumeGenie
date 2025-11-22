@@ -14,6 +14,7 @@ services:
       # Override the host in DATABASE_URL to match the service name 'db'
       # This ensures the app connects to the containerized database, not localhost
       - DATABASE_URL=postgresql+psycopg://postgres:postgres@db:5432/resumegenie
+      - PYTHONPATH=/app
     volumes:
       # Mount the source code to allow live editing (optional, good for dev)
       - ./:/app
