@@ -43,3 +43,5 @@ generated/
 # OS
 Thumbs.db
 .DS_Store
+resume_remoteok_*
+cheat_remoteok_*
