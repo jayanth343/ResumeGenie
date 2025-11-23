@@ -3,25 +3,60 @@
   "email": "sahilshindgikar@gmail.com",
   "linkedin": "https://www.linkedin.com/in/sahil-shindgikar-22ba9b2b8/",
   "github_username": "Sahil0591",
-  "summary": "Aspiring Software Development Engineer with hands-on projects in Python, Java, C++, AI/ML and cloud. Interested in scalable systems and applied AI.",
+  "summary": "Aspiring Software Development Engineer with hands-on projects in Python, Java, C++, AI/ML and cloud. Experienced in building orchestration agents, CNNs, and LLM applications.",
   "skills": [
     "Python", "Java", "C++", "JavaScript", "TypeScript",
-    "Machine Learning", "Computer Vision", "Deep Learning Frameworks", "Logistic Regression",
-    "Supervised Learning", "Unsupervised Learning", "Visualization Techniques",
-    "AWS", "EC2", "Cloud Deployment", "Cloud Infrastructure", "Cloud Storage", "IAM Basics",
+    "Machine Learning", "Computer Vision", "Deep Learning Frameworks", "Ridge Regression",
+    "Supervised Learning", "Unsupervised Learning", "LLMs", "Prompt Engineering",
+    "IBM watsonx", "IBM Granite 3.0", "PostgreSQL", "watsonx.data",
+    "AWS", "EC2", "Cloud Deployment", "Cloud Infrastructure",
     "SQL", "MySQL", "DynamoDB",
-    "CUDA", "GPU Computing", "Parallel Algorithms", "Threading", "Synchronization", "NVIDIA architecture",
+    "CUDA", "GPU Computing", "PyTorch", "Scikit-learn",
     "HTML5", "CSS3",
-    "Git", "GitHub", "VS Code", "Jupyter Notebook", "WSL", "Figma", "HeidiSQL", "Blender"
+    "Git", "GitHub", "VS Code", "Jupyter Notebook", "Agile Workflows"
   ],
-  "years_experience": 5,
+  "years_experience": 1,
   "work_auth": "Eligible in UK; open to remote EU",
   "salary_expectation": "Negotiable",
   "experience": [
-    { "action": "Built", "context": "secure file encryption tool with PBKDF2, Fernet and key-splitting", "result": "Protected sensitive files and improved portability" },
-    { "action": "Implemented", "context": "face keypoint detection with Ridge regression and a CNN in PyTorch", "result": "Accurate landmark prediction on grayscale images" },
-    { "action": "Developed", "context": "Java TFTP client/server over UDP/TCP with multi-client support", "result": "Reliable file transfer in lab environment" },
-    { "action": "Designed", "context": "SimpleLang grammar and parser with ANTLR", "result": "Parsed custom language constructs and produced an AST" }
+    {
+      "company": "Just Group PLC",
+      "role": "Intern / Trainee",
+      "date": "August 2025",
+      "description": "Gained industry exposure in AI automation, cloud architecture, and ML. Utilized Agile workflows for team collaboration and software development."
+    }
+  ],
+  "projects": [
+    {
+      "Name": "ResumeGenie",
+      "Point1": "Architected an AI job aggregator using IBM watsonx Orchestrate, Granite 3.0, and PostgreSQL",
+      "Point2": "Managed API/RSS parsing and normalized disparate job descriptions to prevent duplicates"
+    },
+    {
+      "Name": "GDC",
+      "Point1": "Team lead for Global Design Challenge with Engineers Without Borders UK",
+      "Point2": "Designed award-winning renewable energy solution based on regenerative economy principles"
+    },
+    {
+      "Name": "FaceAlign",
+      "Point1": "Developed an ML-based facial alignment system using CNNs and Ridge regression in PyTorch",
+      "Point2": "Predicted facial landmarks and compared deep learning vs. classical ML performance"
+    },
+    {
+      "Name": "SpamDetect",
+      "Point1": "Executed end-to-end AI pipeline for SMS Spam Detection including cleaning and training",
+      "Point2": "Demonstrated proficiency in text pre-processing and model performance evaluation"
+    },
+    {
+      "Name": "ASL-CNN",
+      "Point1": "Trained a CNN model for American Sign Language (ASL) detection on finger-spelling datasets",
+      "Point2": "analyzed complex time-series data to interpret sequential data structures"
+    },
+    {
+      "Name": "PlannerApp",
+      "Point1": "Engineered a Goal Planner application utilizing a Large Language Model (LLM)",
+      "Point2": "Ensured AI reasoning accuracy through specific prompt engineering"
+    }
   ],
   "education": [
     {
@@ -43,15 +78,41 @@
     }
   ],
   "certifications": [
-    { "name": "AWS Cloud Technical Essentials",
+    {
+      "name": "AWS Cloud Technical Essentials",
       "issuer": "Amazon Web Services (AWS), Coursera",
       "date": "2025-06",
       "link": "https://www.coursera.org/account/accomplishments/verify/C3YCI8CHHD3N"
     },
-    { "name": "Introduction to Parallel Programming with CUDA", "issuer": "The Johns Hopkins University, Coursera", "date": "2025-06", "link": "https://www.coursera.org/account/accomplishments/verify/CRPQY30R9U8C" },
-    { "name": "Introduction to Concurrent Programming with GPUs", "issuer": "The Johns Hopkins University, Coursera", "date": "2025-06", "link": "https://www.coursera.org/account/accomplishments/verify/YSDSWS0ZHXQT" },
-    { "name": "Unsupervised Learning, Recommenders, Reinforcement Learning", "issuer": "DeepLearning.AI, Coursera, Stanford CPD, UVM", "date": "2024-10", "link": "https://www.coursera.org/account/accomplishments/verify/WG2EZCYHS2OU" },
-    { "name": "Advanced Learning Algorithms", "issuer": "DeepLearning.AI, Coursera, Stanford CPD, UVM", "date": "2024-08", "link": "https://www.coursera.org/account/accomplishments/verify/PFCUO3JNTWH4" },
-    { "name": "Supervised Machine Learning: Regression and Classification", "issuer": "DeepLearning.AI, Coursera, Stanford CPD, UVM", "date": "2024-07", "link": "https://www.coursera.org/account/accomplishments/verify/5ZYEBTVX33KK" }
+    {
+      "name": "Introduction to Parallel Programming with CUDA",
+      "issuer": "The Johns Hopkins University, Coursera",
+      "date": "2025-06",
+      "link": "https://www.coursera.org/account/accomplishments/verify/CRPQY30R9U8C"
+    },
+    {
+      "name": "Introduction to Concurrent Programming with GPUs",
+      "issuer": "The Johns Hopkins University, Coursera",
+      "date": "2025-06",
+      "link": "https://www.coursera.org/account/accomplishments/verify/YSDSWS0ZHXQT"
+    },
+    {
+      "name": "Unsupervised Learning, Recommenders, Reinforcement Learning",
+      "issuer": "DeepLearning.AI, Coursera, Stanford CPD, UVM",
+      "date": "2024-10",
+      "link": "https://www.coursera.org/account/accomplishments/verify/WG2EZCYHS2OU"
+    },
+    {
+      "name": "Advanced Learning Algorithms",
+      "issuer": "DeepLearning.AI, Coursera, Stanford CPD, UVM",
+      "date": "2024-08",
+      "link": "https://www.coursera.org/account/accomplishments/verify/PFCUO3JNTWH4"
+    },
+    {
+      "name": "Supervised Machine Learning: Regression and Classification",
+      "issuer": "DeepLearning.AI, Coursera, Stanford CPD, UVM",
+      "date": "2024-07",
+      "link": "https://www.coursera.org/account/accomplishments/verify/5ZYEBTVX33KK"
+    }
   ]
 }

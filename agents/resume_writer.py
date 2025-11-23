@@ -12,143 +12,218 @@ def _format_local_resume(master_profile: Dict, job: Dict, projects: List[Dict]) 
     lines.append(f"Email: {master_profile.get('email','')}")
     lines.append(f"LinkedIn: {master_profile.get('linkedin','')}")
     lines.append(f"GitHub: https://github.com/{master_profile.get('github_username','')}")
-    # Add bigger summary section (include bio if present)
+    
+    # Add summary section
     summary = master_profile.get('summary', '')
-    bio = master_profile.get('bio', '')
-    if summary or bio:
-        lines.append(f"\n## Summary\n{summary}\n{bio}")
+    if summary:
+        lines.append(f"\n## Summary\n{summary}")
+    
     lines.append("\n## Key Skills\n" + ", ".join(sorted(set(master_profile.get("skills", [])))))
+    
+    # Education section
+    lines.append("\n## Education")
+    for edu in master_profile.get("education", []):
+        line = f"- {edu.get('degree','')} in {edu.get('field','')} at {edu.get('institution','')} ({edu.get('startDate','')}–{edu.get('endDate','')})"
+        if edu.get('location'):
+            line += f" | {edu['location']}"
+        lines.append(line)
+        if edu.get('gpa'):
+            lines.append(f"  GPA: {edu['gpa']}")
+    
+    # Experience section
+    lines.append("\n## Experience")
+    for exp in master_profile.get("experience", []):
+        lines.append(f"- **{exp.get('role','')}** at {exp.get('company','')} ({exp.get('date','')})")
+        lines.append(f"  {exp.get('description','')}")
+    
+    # Projects section
     if projects:
         lines.append("\n## Relevant Projects")
         for p in projects:
-            desc = (p.get("description") or "")[:80]
-            lines.append(f"- {p.get('name',p.get('title',''))}: {desc}")
-    lines.append("\n## Education")
-    for edu in master_profile.get("education", []):
-        lines.append(f"- {edu.get('degree','')} in {edu.get('field','')} at {edu.get('institution','')} ({edu.get('startDate','')}–{edu.get('endDate','')}) | {edu.get('location','')}")
-        if edu.get('gpa'): lines.append(f"  GPA: {edu['gpa']}")
-        if edu.get('achievements'): lines.append(f"  Achievements: {', '.join(edu['achievements'])}")
-    # Certifications section (LaTeX format)
-    lines.append("\n## Certifications (LaTeX format)")
+            proj_name = p.get('Name', p.get('name', p.get('title', '')))
+            lines.append(f"- **{proj_name}**")
+            if p.get('Point1'):
+                lines.append(f"  • {p['Point1']}")
+            if p.get('Point2'):
+                lines.append(f"  • {p['Point2']}")
+    
+    # Certifications section
+    lines.append("\n## Certifications")
     certs = master_profile.get("certifications", [])
     if certs:
         for cert in certs:
-            lines.append(f"\\textbf{{{cert.get('name','')}}} -- {cert.get('issuer','')} \\hfill {cert.get('date','')} \\")
-            lines.append(f"\\href{{{cert.get('link','')}}}{{Certificate Link}} \\")
+            lines.append(f"- **{cert.get('name','')}** -- {cert.get('issuer','')} ({cert.get('date','')})")
+            if cert.get('link'):
+                lines.append(f"  Link: {cert['link']}")
     else:
         lines.append("- None")
-    # Experience section
-    lines.append("\n## Experience (Action → Context → Result)")
-    for exp in master_profile.get("experience", []):
-        lines.append(f"- Action: {exp['action']}\n  Context: {exp['context']}\n  Result: {exp['result']}")
+    
     return "\n".join(lines)
 
 def build_granite_resume(master_profile: Dict, job: Dict, projects: List[Dict]) -> str:
     sr = open("samp_res.tex", "r", encoding="utf-8").read()
-    # Compose education and certifications for prompt
+    
+    # Compose education lines
     edu_lines = []
     for edu in master_profile.get("education", []):
         line = f"{edu.get('degree','')} in {edu.get('field','')} at {edu.get('institution','')} ({edu.get('startDate','')}–{edu.get('endDate','')})"
-        if edu.get('gpa'): line += f", GPA: {edu['gpa']}"
+        if edu.get('location'): 
+            line += f" | {edu['location']}"
+        if edu.get('gpa'): 
+            line += f", GPA: {edu['gpa']}"
         edu_lines.append(line)
+    
+    # Compose certification lines
     cert_lines = []
     for cert in master_profile.get("certifications", []):
         cert_lines.append(f"{cert.get('name','')} ({cert.get('issuer','')}, {cert.get('date','')}) [{cert.get('link','')}]")
+    
     # Experience lines
     exp_lines = []
     for exp in master_profile.get("experience", []):
-        exp_lines.append(f"Action: {exp['action']}, Context: {exp['context']}, Result: {exp['result']}")
-    # Bigger summary (include bio if present)
+        exp_lines.append(f"{exp.get('role','')} at {exp.get('company','')} ({exp.get('date','')}): {exp.get('description','')}")
+    
+    # Summary (no bio in this profile)
     summary = master_profile.get('summary', '')
-    bio = master_profile.get('bio', '')
-    full_summary = summary + (' ' + bio if bio else '')
+    
+    # Format projects for prompt
+    project_lines = []
+    for p in projects:
+        proj_name = p.get('Name', p.get('name', p.get('title', '')))
+        point1 = p.get('Point1', '')
+        point2 = p.get('Point2', '')
+        project_lines.append(f"{proj_name}: {point1} {point2}")
+    
+    # Achievements
+    achievements = master_profile.get('achievements', [])
+    
     prompt = f"""
-You are an ATS optimization assistant and a skilled LaTeX resume writer. Generate a tailored resume using the sample_resume.tex template.
-OUTPUT A COMPLETE LaTeX document with this EXACT structure present in the sample below: {', '.join(sr.splitlines())}
-Change the content to reflect the JOB DESCRIPTION and the CANDIDATE SKILLS and PROJECTS provided.
-JOB TITLE: {job.get('title')}
-COMPANY: {job.get('company')}
-NAME: {master_profile.get('name','')}
-EMAIL: {master_profile.get('email','')}
-LINKEDIN: {master_profile.get('linkedin','')}
-GITHUB: https://github.com/{master_profile.get('github_username','')}
-SUMMARY: {full_summary}
-JOB DESCRIPTION:
-{job.get('description','')[:1500]}
-EXPERIENCE: {'; '.join(exp_lines)}
-CANDIDATE SKILLS: {', '.join(master_profile.get('skills', []))}
-EDUCATION: {'; '.join(edu_lines)}
-CERTIFICATIONS: {'; '.join(cert_lines)}
-PROJECTS:
-{'; '.join([p.get('name',p.get('title','')) + ': ' + (p.get('description','')[:120]) for p in projects])}
+You are an expert ATS-optimized LaTeX resume writer. Your task is to generate a tailored, professional resume in LaTeX format.
 
-CERTIFICATIONS: List all certifications with name, issuer, date, and link. This section MUST appear in the output, formatted as in the sample template.
+CRITICAL INSTRUCTIONS:
+1. Use the provided SAMPLE TEMPLATE structure below as your EXACT formatting guide
+2. Replace ONLY the content (names, details, descriptions) - keep ALL LaTeX formatting identical
+3. DO NOT add the job description to the Experience section - Experience comes from CANDIDATE EXPERIENCE only
+4. DO NOT invent information - use only data provided below
+5. Ensure proper LaTeX syntax with correct newlines and spacing
+6. Output ONLY valid LaTeX code that compiles without errors
 
-Output COMPLETE LaTeX Code with sections:
-1. Summary (2+ sentences)
-2. Core Skills (comma separated)
-3. Education (chronological, include university name, all entries)
-4. Certifications (chronological, all entries)
-5. Achievements (Action → Context → Result bullets) (3-5 items)
-6. Contact Info (name, email, linkedin, github)
-Use only real candidate skills.
+=== SAMPLE TEMPLATE (DO NOT MODIFY STRUCTURE) ===
+{sr}
+=== END SAMPLE TEMPLATE ===
 
-Ensure the LaTeX compiles without errors and conflicts.
+=== TARGET JOB (For tailoring language and keywords only) ===
+Job Title: {job.get('title')}
+Company: {job.get('company')}
+Job Description: {job.get('description','')[:1500]}
+=== END TARGET JOB ===
+
+=== CANDIDATE INFORMATION (Use this data to fill the template) ===
+
+CONTACT INFORMATION:
+- Full Name: {master_profile.get('name','')}
+- Email: {master_profile.get('email','')}
+- LinkedIn: {master_profile.get('linkedin','')}
+- GitHub: https://github.com/{master_profile.get('github_username','')}
+
+PROFESSIONAL SUMMARY:
+{summary}
+
+TECHNICAL SKILLS:
+{', '.join(master_profile.get('skills', []))}
+
+EDUCATION (List ALL entries in chronological order):
+{chr(10).join('- ' + line for line in edu_lines)}
+
+WORK EXPERIENCE (Use ONLY these experiences - DO NOT use job description):
+{chr(10).join('- ' + line for line in exp_lines)}
+
+CERTIFICATIONS (List ALL entries with links):
+{chr(10).join('- ' + line for line in cert_lines)}
+
+ACHIEVEMENTS (List if provided):
+{chr(10).join('- ' + achievement for achievement in achievements) if achievements else '- None provided'}
+
+RELEVANT PROJECTS (Each has two bullet points):
+{chr(10).join('- ' + line for line in project_lines)}
+
+=== END CANDIDATE INFORMATION ===
+
+REQUIRED OUTPUT STRUCTURE (in this exact order):
+1. \\documentclass and preamble (copy from sample template)
+2. Contact Information section (name, email, LinkedIn, GitHub)
+3. Professional Summary (2-3 sentences, tailor to job keywords)
+4. Core Skills section - Group as:
+   - Languages: [programming languages only]
+   - Tools & Technologies: [frameworks, databases, cloud platforms, tools]
+   - Relevant Coursework: [if applicable]
+5. Education section (all entries with degree, institution, location, dates, GPA if available)
+6. Experience section (use ONLY candidate's work experience with role, company, date, and description)
+7. Projects section (relevant projects with TWO bullet points each from Point1 and Point2)
+8. Certifications section (all entries with name, issuer, date, and \\href link)
+9. Achievements section (bullet points, ONLY if achievements are provided)
+10. \\end{{document}}
+
+FORMATTING REQUIREMENTS:
+- Use proper LaTeX spacing: \\vspace{{3pt}}, \\hrule for section dividers
+- Ensure all \\begin{{itemize}} have matching \\end{{itemize}}
+- Use [leftmargin=1em, itemsep=0em, topsep=0em] for itemize environment
+- Use \\textbf for emphasis, \\href for links
+- Use \\textit for job titles/roles
+- End with \\end{{document}}
+
+CONTENT TAILORING:
+- Incorporate relevant keywords from the job description naturally into the summary
+- Emphasize skills that match the target role
+- Use action verbs and quantifiable metrics from the experience and projects
+- Keep language professional and concise
+
+OUTPUT ONLY THE COMPLETE LATEX CODE - NO EXPLANATIONS OR MARKDOWN WRAPPERS.
 """
+    
     generated = safe_generate(prompt)
-    # Post-process: ensure certifications section is present and document ends properly
-    certs = master_profile.get("certifications", [])
-    cert_block = ""
-    if certs:
-        cert_lines_latex = []
-        for cert in certs:
-            cert_lines_latex.append(f"\\textbf{{{cert.get('name','')}}} -- {cert.get('issuer','')} \\hfill {cert.get('date','')} \\")
-            cert_lines_latex.append(f"\\href{{{cert.get('link','')}}}{{Certificate Link}} \\")
-        cert_block = "\\section*{Certifications}\n" + "\n".join(cert_lines_latex) + "\n"
-    # If certifications section is present but truncated, replace it
-    if '\\section*{Certifications}' in generated:
-        cert_start = generated.find('\\section*{Certifications}')
-        doc_end = generated.find('\\end{document}', cert_start)
-        if doc_end != -1:
-            generated = generated[:cert_start] + cert_block + generated[doc_end:]
-        else:
-            generated = generated[:cert_start] + cert_block + '\n\\end{document}\n'
-    elif cert_block:
-        # If missing, append before \end{document}
-        if '\\end{document}' in generated:
-            generated = generated.replace('\\end{document}', cert_block + '\\end{document}')
-        else:
-            generated += cert_block + '\n\\end{document}\n'
-    # Ensure document ends properly
-    if '\\end{document}' not in generated:
-        generated += '\n\\end{document}\n'
+    
     if not generated:
         return _format_local_resume(master_profile, job, projects)
+    
+    # Extract LaTeX code if wrapped in markdown
     if '\\documentclass' in generated:
         generated = '\\documentclass' + generated.split('\\documentclass', 1)[1]
+    
+    # Remove incompatible packages
     generated = generated.replace('\\usepackage{XCharter}', '% XCharter removed for compatibility')
     generated = generated.replace('\\usepackage[T1]{fontenc}', '')
+    
+    # Fix unmatched itemize blocks
     if '\\begin{itemize}' in generated and generated.count('\\begin{itemize}') > generated.count('\\end{itemize}'):
         if '\\end{document}' in generated:
             generated = generated.replace('\\end{document}', '\\end{itemize}\n\n\\end{document}')
         else:
             generated += '\n\\end{itemize}\n'
+    
+    # Ensure document ends properly
     if '\\end{document}' not in generated:
-        generated += '\n\n\\end{document}\n'
+        generated += '\n\\end{document}\n'
+    
+    # Replace placeholders
     generated = generated.replace('[Contact Info]', '')
     generated = generated.replace('[Candidate Name]', master_profile.get('name','Professional'))
+    
+    # Save files
     job_id = job.get('id', 'temp').replace('/', '_')
     tex_file = f'resume_{job_id}.tex'
     pdf_file = f'resume_{job_id}.pdf'
+    
     try:
         with open(tex_file, 'w', encoding='utf-8') as f:
             f.write(generated)
         print(f"[INFO] LaTeX saved to {tex_file}")
+        
         try:
             result = subprocess.run(
                 ['pdflatex', '-interaction=nonstopmode', tex_file],
                 capture_output=True,
-                timeout=30,
+                timeout=120,
                 cwd='.',
                 text=True
             )
@@ -162,6 +237,7 @@ Ensure the LaTeX compiles without errors and conflicts.
             print(f"[WARN] PDF generation failed: {pdf_err}")
     except Exception as e:
         print(f"[ERROR] Could not save resume: {e}")
+    
     return generated
 
 

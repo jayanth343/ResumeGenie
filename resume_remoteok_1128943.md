@@ -1,51 +1,120 @@
-\documentclass[11pt]{article}
-\usepackage[letterpaper, top=0.5in, bottom=0.5in, left=0.5in, right=0.5in]{geometry}
+\documentclass[a4paper,11pt]{article}
 
-\usepackage[utf8]{inputenc}
+% --- Packages ---
+\usepackage{latexsym}
+\usepackage{marvosym}
+\usepackage{graphicx}
+\usepackage{geometry}
 \usepackage{enumitem}
-\usepackage[hidelinks]{hyperref}
-\usepackage{titlesec}
-\raggedright
-\pagestyle{empty}
-\input{glyphtounicode}
-\pdfgentounicode=1
+\geometry{margin=0.8in}
+\usepackage[colorlinks=true, urlcolor=blue]{hyperref}
 
-\titleformat{\section}{\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule\vspace{-6.5pt}]
-\renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$}
-\setlist[itemize]{itemsep=-2pt, leftmargin=12pt, topsep=7pt}
+\pagenumbering{gobble}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
 
 \begin{document}
 
-\centerline{\Huge Sahil Shindgikar}
+\begin{center}
+{\LARGE \textbf{Sahil Shindgikar}} \\
+\href{mailto:sahilshindgikar@gmail.com}{sahilshindgikar@gmail.com} \quad | \quad +91 98808 77662 \\
+\href{https://www.linkedin.com/in/sahil-shindgikar-22ba9b2b8}{Linkedin} \quad | \quad \href{https://github.com/Sahil0591}{GitHub}
+\end{center}
+
 \vspace{5pt}
 
-\centerline{\href{mailto:sahilshindgikar@gmail.com}{sahilshindgikar@gmail.com} | \href{https://www.linkedin.com/in/sahil-shindgikar-22ba9b2b8/}{linkedin.com/in/sahil-shindgikar-22ba9b2b8} | \href{https://github.com/Sahil0591}{github.com/Sahil0591}}
-\vspace{-10pt}
+% --- Summary ---
+\textbf{SUMMARY}
+\vspace{3pt}
+\hrule
+\vspace{1pt}
+Aspiring Software Development Engineer with hands-on projects in Python, Java, C++, AI/ML, and cloud. Gained industry exposure in AI automation, cloud architecture, and ML through an internship at Just Group PLC. Utilized Agile workflows for team collaboration and software development.
 
-\section*{Summary}
-Aspiring Software Development Engineer with hands-on projects in Python, Java, C++, AI/ML, and cloud technologies. Interested in scalable systems and applied AI.
+% --- Education ---
+\textbf{EDUCATION}
+\vspace{3pt}
+\hrule
+\vspace{1pt}
+\textbf{Bachelor of Science in Computer Science} | University of Sussex \hfill \textbf{2023 – 2027} \\
+- GPA: 4.0/4.0 | First Class
 
-\section*{Core Skills}
-Python, Java, C++, JavaScript, TypeScript, Machine Learning, Computer Vision, Deep Learning Frameworks, Logistic Regression, Supervised Learning, Unsupervised Learning, Visualization Techniques, AWS, EC2, Cloud Deployment, Cloud Infrastructure, Cloud Storage, IAM Basics, SQL, MySQL, DynamoDB, CUDA, GPU Computing, Parallel Algorithms, Threading, Synchronization, NVIDIA architecture, HTML5, CSS3, Git, GitHub, VS Code, Jupyter Notebook, WSL, Figma, HeidiSQL, Blender
+\textbf{Bachelor of Technology in Computer Engineering} | PES University \hfill \textbf{2022 – 2023} \\
 
-\section*{Education}
-\textbf{Bachelor of Science in Computer Science} at University of Sussex \hfill 2023-09–2027-05 \\
-GPA: 4.0/4.0 | First Class
+% --- Skills ---
+\textbf{SKILLS}
+\vspace{3pt}
+\hrule
+\vspace{1pt}
+\textbf{Languages:} Python, Java, C++, JavaScript, TypeScript \\
+\textbf{Tools \& Technologies:} Machine Learning, Computer Vision, Deep Learning Frameworks, Ridge Regression, Supervised Learning, Unsupervised Learning, LLMs, Prompt Engineering, IBM watsonx, IBM Granite 3.0, PostgreSQL, watsonx.data, AWS, EC2, Cloud Deployment, Cloud Infrastructure, SQL, MySQL, DynamoDB, CUDA, GPU Computing, PyTorch, Scikit-learn, HTML5, CSS3, Git, GitHub, VS Code, Jupyter Notebook, Agile Workflows
 
-\textbf{Bachelor of Technology in Computer Engineering} at PES University \hfill 2022-09–2023-05
+% --- Experience ---
+\textbf{EXPERIENCE}
+\vspace{3pt}
+\hrule
+\vspace{1pt}
+\textbf{Just Group PLC} | Trainee \hfill \textbf{August 2025} \\
+\textit{AI Automation, Cloud Architecture, ML}
+\begin{itemize}[leftmargin=1em, itemsep=0em, topsep=0em]
+\vspace{-0.4em}
+    \item Gained industry exposure in AI automation, cloud architecture, and ML.
+    \vspace{-0.2em}
+    \item Utilized Agile workflows for team collaboration and software development.
+\end{itemize}
 
-\section*{Certifications}
-\textbf{AWS Cloud Technical Essentials} -- Amazon Web Services (AWS), Coursera \hfill 2025-06 \
-\href{https://www.coursera.org/account/accomplishments/verify/C3YCI8CHHD3N}{Certificate Link} \
-\textbf{Introduction to Parallel Programming with CUDA} -- The Johns Hopkins University, Coursera \hfill 2025-06 \
-\href{https://www.coursera.org/account/accomplishments/verify/CRPQY30R9U8C}{Certificate Link} \
-\textbf{Introduction to Concurrent Programming with GPUs} -- The Johns Hopkins University, Coursera \hfill 2025-06 \
-\href{https://www.coursera.org/account/accomplishments/verify/YSDSWS0ZHXQT}{Certificate Link} \
-\textbf{Unsupervised Learning, Recommenders, Reinforcement Learning} -- DeepLearning.AI, Coursera, Stanford CPD, UVM \hfill 2024-10 \
-\href{https://www.coursera.org/account/accomplishments/verify/WG2EZCYHS2OU}{Certificate Link} \
-\textbf{Advanced Learning Algorithms} -- DeepLearning.AI, Coursera, Stanford CPD, UVM \hfill 2024-08 \
-\href{https://www.coursera.org/account/accomplishments/verify/PFCUO3JNTWH4}{Certificate Link} \
-\textbf{Supervised Machine Learning: Regression and Classification} -- DeepLearning.AI, Coursera, Stanford CPD, UVM \hfill 2024-07 \
-\href{https://www.coursera.org/account/accomplishments/verify/5ZYEBTVX33KK}{Certificate Link} \
+% --- Projects ---
+\textbf{PROJECTS}
+\vspace{3pt}
+\hrule
+\vspace{1pt}
+\textbf{\href{https://github.com/Sahil0591/Bull-Cow-game}{Bull-Cow-game}}%
+\vspace{-0.4em}
+\begin{itemize}[leftmargin=*, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
+    \item Developed a number guessing game in Python, implementing game logic and user interface.
+    \item Utilized object-oriented programming principles and unit testing.
+\end{itemize}
+\vspace{-0.4em}
+\textbf{\href{https://github.com/Sahil0591/FileEncryptor}{FileEncryptor}}%
+\vspace{-0.4em}
+\begin{itemize}[leftmargin=*, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
+    \item Created a file encryption tool in Java, supporting AES encryption and decryption.
+    \item Implemented secure key management and user authentication.
+\end{itemize}
+\vspace{-0.4em}
+\textbf{\href{https://github.com/Sahil0591/Java-TFTP-Implementation}{Java-TFTP-Implementation}}%
+\vspace{-0.4em}
+\begin{itemize}[leftmargin=*, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
+    \item Implemented a TFTP (Trivial File Transfer Protocol) server in Java, supporting file transfers over UDP.
+    \item Ensured robust error handling and data integrity.
+\end{itemize}
+\vspace{-0.4em}
+\textbf{\href{https://github.com/Sahil0591/Operating-System-Scheduler-Simulation}{Operating-System-Scheduler-Simulation}}%
+\vspace{-0.4em}
+\begin{itemize}[leftmargin=*, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
+    \item Developed a simulation of an operating system scheduler in Python, implementing various scheduling algorithms.
+    \item Analyzed performance metrics and provided visualizations.
+\end{itemize}
+\vspace{-0.4em}
+\textbf{\href{https://github.com/Sahil0591/ResumeGenie}{ResumeGenie}}%
+\vspace{-0.4em}
+\begin{itemize}[leftmargin=*, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
+    \item Created a resume generation tool in Python, utilizing natural language processing and data visualization libraries.
+    \item Implemented a user-friendly command-line interface and generated professional resumes.
+\end{itemize}
+
+% --- Certifications ---
+\textbf{CERTIFICATIONS}
+\vspace{3pt}
+\hrule
+\vspace{1pt}
+\begin{itemize}[leftmargin=*, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
+    \item \href{https://www.coursera.org/account/accomplishments/verify/C3YCI8CHHD3N}{AWS Cloud Technical Essentials} (Amazon Web Services (AWS), Coursera, 2025-06)
+    \item \href{https://www.coursera.org/account/accomplishments/verify/CRPQY30R9U8C}{Introduction to Parallel Programming with CUDA} (The Johns Hopkins University, Coursera, 2025-06)
+    \item \href{https://www.coursera.org/account/accomplishments/verify/YSDSWS0ZHXQT}{Introduction to Concurrent Programming with GPUs} (The Johns Hopkins University, Coursera, 2025-06)
+    \item \href{https://www.coursera.org/account/accomplishments/verify/WG2EZCYHS2OU}{Unsupervised Learning, Recommenders, Reinforcement Learning} (DeepLearning.AI, Coursera, Stanford CPD, UVM, 2024-10)
+    \item \href{https://www.coursera.org/account/accomplishments/verify/PFCUO3JNTWH4}{Advanced Learning Algorithms} (DeepLearning.AI, Coursera, Stanford CPD, UVM, 2024-08)
+    \item \href{https://www.coursera.org/account/accomplishments/verify/5ZYEBTVX33KK}{Supervised Machine Learning: Regression and Classification} (DeepLearning.AI, Coursera, Stanford CPD, UVM, 2024-07)
+\end{itemize}
 
 \end{document}
+```
