@@ -12,10 +12,14 @@ WORKDIR /app
 
 # Install system dependencies required for building Python packages
 # libpq-dev is often needed for PostgreSQL adapters
+# texlive-latex-base and texlive-latex-extra for PDF generation via LaTeX
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
     gcc \
+    texlive-latex-base \
+    texlive-latex-extra \
+    texlive-fonts-recommended \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the requirements file into the container
