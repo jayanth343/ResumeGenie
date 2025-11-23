@@ -1,4 +1,5 @@
 
+
 import json
 import os
 from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks
@@ -16,7 +17,18 @@ from agents.resume_writer import build_granite_resume, build_cheat_sheet
 from agents.ghost_validator import validate_job
 from db.persist import upsert_jobs, save_application
 
+
 app = FastAPI(title="ResumeGenie API")
+
+# --- Export Jobs Endpoint ---
+@app.get("/export_jobs")
+def export_jobs(db: Session = Depends(get_session)):
+    jobs = db.query(Job).all()
+    jobs_json = [
+        {c.name: getattr(job, c.name) for c in job.__table__.columns}
+        for job in jobs
+    ]
+    return jobs_json
 
 # Profile file path
 PROFILE_PATH = os.path.join(os.path.dirname(__file__), "master_profile.json")
@@ -55,7 +67,7 @@ app.mount("/static", StaticFiles(directory="."), name="static")
 # Allow Next.js (port 3000) to talk to Python (port 8000)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:3000","https://didynamous-contrastedly-marni.ngrok-free.dev"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
