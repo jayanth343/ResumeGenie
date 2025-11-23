@@ -157,7 +157,7 @@ export default function EditProfile() {
       setProfile(parsed);
       setError(null);
       setSaving(true);
-      fetch("https://resumegenie-wjwk.onrender.com/profile", {
+      fetch("https://resumegenie-wjwk.onrender.com:8000/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(parsed),

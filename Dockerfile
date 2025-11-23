@@ -31,6 +31,10 @@ COPY . .
 # Create a non-root user for security (optional but recommended)
 RUN useradd -m appuser && chown -R appuser /app
 USER appuser
-# Default command to run the pipeline
-# Users can override this command (e.g., to run specific scripts)
-CMD ["python", "-m","api_server.main"]
+
+# Expose port 8000 for the API server
+EXPOSE 8000
+
+# Default command to run the API server
+# Render will use the PORT environment variable, but FastAPI defaults to 8000
+CMD ["python", "api_server.py"]
