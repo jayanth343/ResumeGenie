@@ -76,7 +76,10 @@ Ensure the LaTeX compiles without errors and conflicts.
     generated = generated.replace('[Candidate Name]', 'Professional')
     
     # Save generated content
-    job_id = job.get('id', 'temp').replace('/', '_')
+    def sanitize_job_id(job_id):
+        return ''.join([c if c.isalnum() else '_' for c in job_id])
+    job_id_raw = job.get('id', 'temp')
+    job_id = sanitize_job_id(job_id_raw)
     tex_file = f'resume_{job_id}.tex'
     pdf_file = f'resume_{job_id}.pdf'
     

@@ -49,7 +49,7 @@ def trigger_ingest(background_tasks: BackgroundTasks, db: Session = Depends(get_
     background_tasks.add_task(run_ingestion_pipeline, db)
     return {"status": "Ingestion started in background"}
 
-@app.post("/generate/{job_id}")
+@app.post("/generate/{job_id:path}")
 def generate_application(job_id: str, db: Session = Depends(get_session)):
     """Generate resume and cheat sheet for a specific job"""
     job_record = db.query(Job).filter(Job.id == job_id).first()
@@ -73,8 +73,11 @@ def generate_application(job_id: str, db: Session = Depends(get_session)):
     pkg_id = save_application(db, job_id, resume, cheat, "user@example.com", 0)
     # For preview, use resume as markdown/text
     preview_md = resume if isinstance(resume, str) else str(resume)
-    # For PDF download, assume PDF is saved as resume_{job_id}.pdf in working dir
-    pdf_url = f"/static/resume_{job_id}.pdf"
+    # Sanitize job_id for filename (match frontend logic)
+    def sanitize_job_id(job_id):
+        return ''.join([c if c.isalnum() else '_' for c in job_id])
+    sanitized_job_id = sanitize_job_id(job_id)
+    pdf_url = f"/static/resume_{sanitized_job_id}.pdf"
     return {
         "status": "Generated",
         "package_id": pkg_id,

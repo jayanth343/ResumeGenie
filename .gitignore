@@ -1,3 +1,10 @@
+# Ignore all generated resume PDFs and LaTeX files
+resume_*.pdf
+resume_*.tex
+resume_*.aux
+resume_*.log
+resume_*.md
+resume_*.out
 # Virtual environments
 .venv/
 venv/

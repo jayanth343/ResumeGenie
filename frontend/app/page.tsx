@@ -54,23 +54,30 @@ export default function Home() {
     }
   };
 
-  const generateResume = async (jobId: string) => {
-    setGenerating(jobId);
-    setError(null);
-    setResumePreview(null);
-    setResumeDownloadUrl(null);
-    try {
-      const res = await fetch(`http://localhost:8000/generate/${jobId}`, { method: 'POST' });
-      if (!res.ok) throw new Error('Resume generation failed');
-      const data = await res.json();
-      // Assume backend returns { package_id, preview_md, pdf_url }
-      setResumePreview(data.preview_md || '');
-      setResumeDownloadUrl(data.pdf_url || null);
-    } catch (e) {
-      setError('Error generating resume. Please try again.');
+    // Top-level utility for consistent filename sanitization
+    function sanitizeJobId(jobId: string) {
+      // Replace all non-alphanumeric characters with underscores
+      return jobId.replace(/[^a-zA-Z0-9]/g, '_');
     }
-    setGenerating(null);
-  };
+
+    const generateResume = async (jobId: string) => {
+        setGenerating(jobId);
+        setError(null);
+        setResumePreview(null);
+        setResumeDownloadUrl(null);
+        try {
+          const encodedId = encodeURIComponent(jobId);
+          const res = await fetch(`http://localhost:8000/generate/${encodedId}`, { method: 'POST' });
+          if (!res.ok) throw new Error('Resume generation failed');
+          const data = await res.json();
+          // Assume backend returns { package_id, preview_md, pdf_url }
+          setResumePreview(data.preview_md || '');
+          setResumeDownloadUrl(data.pdf_url || null);
+        } catch (e) {
+          setError('Error generating resume. Please try again.');
+        }
+        setGenerating(null);
+    };
 
   useEffect(() => {
     fetchJobs();
